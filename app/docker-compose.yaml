@@ -1,7 +1,6 @@
 version: '3.8'
 
 services:
-  # PostgreSQL Database thay cho SQLite
   postgres:
     image: postgres:15-alpine
     container_name: student_portal_db
@@ -22,7 +21,6 @@ services:
       timeout: 10s
       retries: 3
 
-  # Redis Cache để lưu session và cache
   redis:
     image: redis:7-alpine
     container_name: student_portal_redis
@@ -34,30 +32,26 @@ services:
     command: redis-server --appendonly yes
     restart: unless-stopped
 
-  # Flask Application
-web:
-  build:
-    context: .
-    dockerfile: Dockerfile
-  container_name: student_portal_app
-  hostname: web
-  ports:
-    - "5000:5000"
-  volumes:
-    - ./app:/app  # CHỈ map thư mục app
-    - ./logs:/app/logs
-  environment:
-    - FLASK_ENV=production
-    - DATABASE_URL=postgresql://portal_user:portal_password123@postgres:5432/student_portal
-    - REDIS_URL=redis://redis:6379
-    - SECRET_KEY=your_secret_key_here
-  command: python app.py  # THÊM command rõ ràng
-  depends_on:
-    postgres:
-      condition: service_healthy
-    redis:
-      condition: service_started
-  restart: unless-stopped
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: student_portal_app
+    hostname: web
+    ports:
+      - "5000:5000"
+    # XÓA volume mapping để dùng file từ image
+    environment:
+      - FLASK_ENV=production
+      - DATABASE_URL=postgresql://portal_user:portal_password123@postgres:5432/student_portal
+      - REDIS_URL=redis://redis:6379
+      - SECRET_KEY=your_secret_key_here
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_started
+    restart: unless-stopped
 
 volumes:
   postgres_data:
