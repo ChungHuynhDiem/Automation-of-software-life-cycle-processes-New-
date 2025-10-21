@@ -11,14 +11,11 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy thư mục app vào /app
-COPY app/ ./app
-
 # Tạo thư mục logs
 RUN mkdir -p logs
 
 # Expose port
 EXPOSE 5000
 
-# Command để chạy ứng dụng
+# Command để chạy ứng dụng - SỬA ĐƯỜNG DẪN
 CMD ["python", "app.py"]

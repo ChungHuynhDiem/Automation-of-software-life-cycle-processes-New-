@@ -35,28 +35,29 @@ services:
     restart: unless-stopped
 
   # Flask Application
-  web:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: student_portal_app
-    hostname: web
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
-      - ./logs:/app/logs
-    environment:
-      - FLASK_ENV=production
-      - DATABASE_URL=postgresql://portal_user:portal_password123@postgres:5432/student_portal
-      - REDIS_URL=redis://redis:6379
-      - SECRET_KEY=your_secret_key_here
-    depends_on:
-      postgres:
-        condition: service_healthy
-      redis:
-        condition: service_started
-    restart: unless-stopped
+web:
+  build:
+    context: .
+    dockerfile: Dockerfile
+  container_name: student_portal_app
+  hostname: web
+  ports:
+    - "5000:5000"
+  volumes:
+    - ./app:/app  # CHỈ map thư mục app
+    - ./logs:/app/logs
+  environment:
+    - FLASK_ENV=production
+    - DATABASE_URL=postgresql://portal_user:portal_password123@postgres:5432/student_portal
+    - REDIS_URL=redis://redis:6379
+    - SECRET_KEY=your_secret_key_here
+  command: python app.py  # THÊM command rõ ràng
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_started
+  restart: unless-stopped
 
 volumes:
   postgres_data:
