@@ -1,7 +1,76 @@
+# version: '3.8'
+
+# services:
+#   # PostgreSQL Database thay cho SQLite
+#   postgres:
+#     image: postgres:15-alpine
+#     container_name: student_portal_db
+#     hostname: postgres
+#     environment:
+#       POSTGRES_DB: student_portal
+#       POSTGRES_USER: portal_user
+#       POSTGRES_PASSWORD: portal_password123
+#     ports:
+#       - "5432:5432"
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#       - ./init-scripts:/docker-entrypoint-initdb.d
+#     restart: unless-stopped
+#     healthcheck:
+#       test: ["CMD-SHELL", "pg_isready -U portal_user -d student_portal"]
+#       interval: 30s
+#       timeout: 10s
+#       retries: 3
+
+#   # Redis Cache để lưu session và cache
+#   redis:
+#     image: redis:7-alpine
+#     container_name: student_portal_redis
+#     hostname: redis
+#     ports:
+#       - "6379:6379"
+#     volumes:
+#       - redis_data:/data
+#     command: redis-server --appendonly yes
+#     restart: unless-stopped
+
+#   # Flask Application
+#   web:
+#     build:
+#       context: .
+#       dockerfile: Dockerfile
+#     container_name: student_portal_app
+#     hostname: web
+#     ports:
+#       - "5000:5000"
+#     volumes:
+#       - .:/app
+#       - ./logs:/app/logs
+#     environment:
+#       - FLASK_ENV=production
+#       - DATABASE_URL=postgresql://portal_user:portal_password123@postgres:5432/student_portal
+#       - REDIS_URL=redis://redis:6379
+#       - SECRET_KEY=your_secret_key_here
+#     depends_on:
+#       postgres:
+#         condition: service_healthy
+#       redis:
+#         condition: service_started
+#     restart: unless-stopped
+
+# volumes:
+#   postgres_data:
+#     driver: local
+#   redis_data:
+#     driver: local
+
+# networks:
+#   default:
+#     name: student_portal_network
 version: '3.8'
 
 services:
-  # PostgreSQL Database thay cho SQLite
+  # PostgreSQL Database
   postgres:
     image: postgres:15-alpine
     container_name: student_portal_db
@@ -20,9 +89,9 @@ services:
       test: ["CMD-SHELL", "pg_isready -U portal_user -d student_portal"]
       interval: 30s
       timeout: 10s
-      retries: 3
+      retries: 5
 
-  # Redis Cache để lưu session và cache
+  # Redis Cache
   redis:
     image: redis:7-alpine
     container_name: student_portal_redis
@@ -44,7 +113,6 @@ services:
     ports:
       - "5000:5000"
     volumes:
-      - .:/app
       - ./logs:/app/logs
     environment:
       - FLASK_ENV=production
