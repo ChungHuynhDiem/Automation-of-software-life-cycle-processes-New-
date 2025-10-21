@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy toàn bộ ứng dụng
-COPY . .
+# Copy thư mục app vào /app
+COPY app/ ./app
 
 # Tạo thư mục logs
 RUN mkdir -p logs
