@@ -11,8 +11,8 @@ RUN apt-get update && apt-get install -y \
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy toàn bộ thư mục ứng dụng vào /app/app
-COPY app/ ./app
+# Copy toàn bộ ứng dụng
+COPY . .
 
 # Tạo thư mục logs
 RUN mkdir -p logs
@@ -21,4 +21,4 @@ RUN mkdir -p logs
 EXPOSE 5000
 
 # Command để chạy ứng dụng
-CMD ["python", "app/app.py"]
+CMD ["python", "app.py"]
