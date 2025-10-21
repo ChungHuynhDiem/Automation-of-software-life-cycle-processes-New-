@@ -4,9 +4,11 @@ from models import db, Student, Course, StudyPlan, StudentProgressLog
 
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'   # cần cho WTForms
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///student_portal.db'
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+#app.config['SECRET_KEY'] = 'your_secret_key'   # cần cho WTForms
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///student_portal.db'
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+# Thay đổi từ SQLite sang PostgreSQL
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://portal_user:portal_password123@postgres:5432/student_portal'
 
 db.init_app(app)
 
@@ -380,4 +382,4 @@ with app.app_context():
     db.create_all()
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000, debug=True)
