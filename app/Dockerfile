@@ -21,4 +21,4 @@ RUN mkdir -p logs
 EXPOSE 5000
 
 # Command để chạy ứng dụng
-CMD ["python", "app/app.py"]
+CMD ["python", "app.py"]
