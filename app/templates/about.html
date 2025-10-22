@@ -1,10 +1,66 @@
 {% extends "base.html" %}
 
-{% block title %}About{% endblock %}
+{% block title %}О программе{% endblock %}
 
 {% block content %}
-<h2>About Page</h2>
-<p>Chunng huynh diem</p>
-<p>Đây là nội dung about.html</p>
+<div class="container mt-4">
+    <h2 class="mb-4">О программе учета успеваемости студентов</h2>
+    
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header">
+                    <h4>Функциональные возможности</h4>
+                </div>
+                <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Учет контингента студентов:</strong> 
+                            ФИО, год поступления, форма обучения (дневная/вечерняя/заочная), номер/название группы
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Управление учебным планом:</strong> 
+                            Название специальности, дисциплины, семестры, количество часов, форма отчетности
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Журнал успеваемости:</strong> 
+                            Учет оценок студентов по дисциплинам за каждый семестр
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Статистика и аналитика:</strong> 
+                            Подсчет студентов по формам обучения, информация о дисциплинах
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card">
+                <div class="card-header">
+                    <h4>Основные функции</h4>
+                </div>
+                <div class="card-body">
+                    <ol>
+                        <li class="mb-2">Подсчет количества студентов по указанной форме обучения</li>
+                        <li class="mb-2">Получение информации о количестве часов и формах отчетности по дисциплинам</li>
+                        <li class="mb-2">Добавление и редактирование информации о студентах и учебных планах</li>
+                        <li class="mb-2">Управление журналом успеваемости студентов</li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Разработчик</h4>
+                </div>
+                <div class="card-body text-center">
+                    <p class="card-text">Система управления учебным процессом</p>
+                    <p class="card-text">Версия 1.0</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
 
