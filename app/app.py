@@ -373,9 +373,9 @@ def get_study_plans(course_id):
     except Exception as e:
         return jsonify({'success': False, 'message': str(e)}), 500
 
-# @app.route("/about")
-# def about():
-#     return render_template("about.html")
+@app.route("/about")
+def about():
+    return render_template("about.html")
 
 # TẠO DATABASE NẾU CHƯA CÓ
 with app.app_context():
